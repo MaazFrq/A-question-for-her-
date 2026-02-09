@@ -67,6 +67,19 @@
             z-index: 5;
         }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* WATERMARK STYLE */
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: bold;
+            z-index: 100;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -92,6 +105,8 @@
             <h1>YAYYY! I knew it!❤️<br>love you a lot😘</h1>
             <p style="color: white; font-weight: bold; font-size: 1.2rem;">You're the best! 🎉</p>
         </div>
+
+        <div class="watermark">Made with ❤️ by Maaz Farooqui</div>
     </div>
 
     <script>
@@ -121,7 +136,6 @@
             celebrationSection.style.display = 'block';
             cloud.style.display = 'flex';
             
-            // TWEAKED RAIN: 250ms delay + random opacity for a pro look
             setInterval(() => {
                 const heart = document.createElement('div');
                 const emojis = ['❤️', '💖', '🥰', '✨', '🌸', '💘', '🌹'];
@@ -130,13 +144,10 @@
                 heart.style.left = Math.random() * 100 + 'vw';
                 heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
                 heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                
-                // ADDED DEPTH: Some are faint, some are solid
                 heart.style.opacity = Math.random() * 0.5 + 0.5; 
-                
                 document.body.appendChild(heart);
                 setTimeout(() => heart.remove(), 5000);
-            }, 250); // Slower, more elegant timing
+            }, 250);
         });
     </script>
 </body>
