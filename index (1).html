@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For You ❤️</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; background-color: #ffcad4;
+            font-family: 'Arial', sans-serif; overflow: hidden;
+            transition: background-color 0.8s ease;
+            touch-action: manipulation;
+        }
+
+        #content { text-align: center; width: 100%; z-index: 10; }
+
+        .gif-container {
+            height: 200px; display: flex;
+            justify-content: center; align-items: center;
+            margin-bottom: 20px;
+        }
+        .gif-container img { max-height: 100%; border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+
+        h1 { font-size: 1.7rem; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); line-height: 1.4; }
+        
+        .btn-group {
+            display: flex; justify-content: center;
+            align-items: center; gap: 20px; min-height: 100px;
+        }
+
+        button {
+            padding: 15px 30px; font-size: 1.1rem;
+            border: none; border-radius: 50px;
+            cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn { background-color: #fff; color: #ff4d6d; }
+        #noBtn { background-color: #ff4d6d; color: #fff; position: relative; }
+
+        .emoji-cloud {
+            display: none;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .floating-emoji {
+            font-size: 60px;
+            animation: bounce 0.8s infinite alternate;
+        }
+
+        .emoji-2 { animation-delay: 0.2s; }
+        .emoji-3 { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-25px) scale(1.2); }
+        }
+
+        .heart {
+            position: fixed; top: -10%; font-size: 1.5rem;
+            color: #ff4d6d; user-select: none; pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 5;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="content">
+        <div id="startSection">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3eXh3eXh3eXh3eXh3eXh3eXh3eXh3eXh3eXh3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif">
+            </div>
+            <h1>Will you be my Valentine? ❤️</h1>
+            <div class="btn-group">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <div id="celebrationSection" style="display:none;">
+            <div class="emoji-cloud" id="cloud">
+                <div class="floating-emoji">🥰</div>
+                <div class="floating-emoji emoji-2">💖</div>
+                <div class="floating-emoji emoji-3">😘</div>
+            </div>
+            <h1>YAYYY! I knew it!❤️<br>love you a lot😘</h1>
+            <p style="color: white; font-weight: bold; font-size: 1.2rem;">You're the best! 🎉</p>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const startSection = document.getElementById('startSection');
+        const celebrationSection = document.getElementById('celebrationSection');
+        const cloud = document.getElementById('cloud');
+
+        const noPhrases = ["No", "Are you sure?", "Think again!", "Please? 🥺", "Ek baar socho!", "Try again", "No option 😤"];
+
+        const handleNo = () => {
+            noBtn.innerText = noPhrases[Math.floor(Math.random() * noPhrases.length)];
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        };
+
+        noBtn.addEventListener('mouseover', handleNo);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); handleNo(); });
+
+        yesBtn.addEventListener('click', () => {
+            document.body.style.backgroundColor = "#ff7096";
+            startSection.style.display = 'none';
+            celebrationSection.style.display = 'block';
+            cloud.style.display = 'flex';
+            
+            // TWEAKED RAIN: 250ms delay + random opacity for a pro look
+            setInterval(() => {
+                const heart = document.createElement('div');
+                const emojis = ['❤️', '💖', '🥰', '✨', '🌸', '💘', '🌹'];
+                heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                
+                // ADDED DEPTH: Some are faint, some are solid
+                heart.style.opacity = Math.random() * 0.5 + 0.5; 
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 250); // Slower, more elegant timing
+        });
+    </script>
+</body>
+</html>
